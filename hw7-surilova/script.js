@@ -7,7 +7,7 @@ function isSymbolPresentInString(str, symbol) {
 	}
 	return false;
 }
-// console.log(isSymbolPresentInString("Hello World!", "W"));
+console.log(isSymbolPresentInString("Hello World!", "W"));
 
 // Функция возвращает индекс первого найденного символа в строке, или -1 если символ не найден
 function getSymbolIndex(str, symbol) {
@@ -18,8 +18,8 @@ function getSymbolIndex(str, symbol) {
 	}
 	return -1;
 }
-// console.log(getSymbolIndex("Hello World!", "W"));
-// console.log(getSymbolIndex("Hello World!", "b"));
+console.log(getSymbolIndex("Hello World!", "W"));
+console.log(getSymbolIndex("Hello World!", "b"));
 
 // Функция копирует свойства из объекта origin в объект target и возвращает его
 function copy(target, origin) {
@@ -57,31 +57,28 @@ function compare(obj1, obj2) {
 	}
 	return true;
 }
-
 // admin.name = "Joe";
 console.log(compare(user, admin));
+
+
+// Дополнительная функция для подсчета символов
+function calculateSymbols(str, symbol) {
+	let count = 0;
+	let position = str.indexOf(symbol);
+	while (position !== -1) {
+		count++;
+		position = str.indexOf(symbol, position + 1);
+	}
+	return count;
+}
 
 // Функция анализирует строку и возвращает данные о том, сколько раз встретилась та или иная буква
 function analizeString(str) {
 	const result = {};
-	// let newSymb = str[0];
-	for (let i = 0; i < str.length; i++) {
-		let counter = 0;
-		let newSymb = str[i];
-		if (newSymb === str[i]) {
-			counter++;
-			result[newSymb] = counter;
-		}
-		if (newSymb !== str[i]) {
-			// counter = 0;
-			// for (let j = i + 1; j < str.length - i; j++) {
-			newSymb = str[i + 1];
-			counter++;
-			result[newSymb] = counter;
-			// }
-		}
-		console.log(counter);
+	for (const sym of str) {
+		result[sym] = calculateSymbols(str, sym);
 	}
-	console.log(result);
+	return result;
 }
-analizeString("dsldkjrirdxmnaejehtirtgask");
+const result = analizeString("aabbccaabbccaabbccaabbccaabbcc");
+console.log(result);
