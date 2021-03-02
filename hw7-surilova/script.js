@@ -46,15 +46,11 @@ function compare(obj1, obj2) {
 	const arrValue2 = Object.values(obj2);
 
 	for (let i = 0; i < arrKeys1.length; i++) {
-		if (arrKeys1[i] !== arrKeys2[i]) {
+		if (arrKeys1[i] !== arrKeys2[i] || arrValue1[i] !== arrValue2[i]) {
 			return false;
 		}
 	}
-	for (let i = 0; i < arrValue1.length; i++) {
-		if (arrValue1[i] !== arrValue2[i]) {
-			return false;
-		}
-	}
+
 	return true;
 }
 // admin.name = "Joe";
