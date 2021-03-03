@@ -1,6 +1,6 @@
 // Функция возвращает true если символ найден в строке и false если нет
 function isSymbolPresentInString(str, symbol) {
-	for (let strSymb of str) {
+	for (const strSymb of str) {
 		if (strSymb === symbol) {
 			return true;
 		}
@@ -23,7 +23,7 @@ console.log(getSymbolIndex("Hello World!", "b"));
 
 // Функция копирует свойства из объекта origin в объект target и возвращает его
 function copy(target, origin) {
-	for (let key in origin) {
+	for (const key in origin) {
 		target[key] = origin[key];
 	}
 	return target;
