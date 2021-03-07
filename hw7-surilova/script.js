@@ -56,25 +56,22 @@ function compare(obj1, obj2) {
 // admin.name = "Joe";
 console.log(compare(user, admin));
 
-
-// Дополнительная функция для подсчета символов
-function calculateSymbols(str, symbol) {
-	let count = 0;
-	let position = str.indexOf(symbol);
-	while (position !== -1) {
-		count++;
-		position = str.indexOf(symbol, position + 1);
-	}
-	return count;
-}
-
 // Функция анализирует строку и возвращает данные о том, сколько раз встретилась та или иная буква
 function analizeString(str) {
 	const result = {};
-	for (const sym of str) {
-		result[sym] = calculateSymbols(str, sym);
+	for (let i = 0; i < str.length; i++) {
+		let counter = 0;
+		let newSymb = str[i];
+		for (let j = 0; j < str.length; j++) {
+			if (str[j] === newSymb) {
+				counter++;
+			}
+		}
+		result[newSymb] = counter;
 	}
 	return result;
 }
 const result = analizeString("aabbccaabbccaabbccaabbccaabbcc");
+const result2 = analizeString("asdffdsasdffdsaasdf");
 console.log(result);
+console.log(result2);
