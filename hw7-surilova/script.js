@@ -59,18 +59,14 @@ console.log(compare(user, admin));
 // Функция анализирует строку и возвращает данные о том, сколько раз встретилась та или иная буква
 function analizeString(str) {
 	const result = {};
-	for (let i = 0; i < str.length; i++) {
-		let counter = 0;
-		let newSymb = str[i];
-		for (let j = 0; j < str.length; j++) {
-			if (str[j] === newSymb) {
-				counter++;
-			}
-		}
-		result[newSymb] = counter;
+	const strToArr = str.split("");
+	for (let i = 0; i < strToArr.length; i++) {
+		let count = (result[strToArr[i]] !== undefined) ? result[strToArr[i]] : 0;
+		result[strToArr[i]] = count + 1;
 	}
 	return result;
 }
+
 const result = analizeString("aabbccaabbccaabbccaabbccaabbcc");
 const result2 = analizeString("asdffdsasdffdsaasdf");
 console.log(result);
