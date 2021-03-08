@@ -1,43 +1,28 @@
 function copyAll(param) {
-	// Вспомогательная функция для копирования массивов
-	function copyArr(target, origin) {
-		for (let i = 0; i < origin.length; i++) {
-			if (Array.isArray(origin[i])) {
-				target.push(copyArr([], origin[i]));
-			} else if (typeof origin[i] === "object" && origin[i] !== null) {
-				target.push(copyObj({}, origin[i]));
-			} else {
-				target.push(origin[i]);
-			}
-		}
-		return target;
-	}
-
-	// Вспомогательная функция для копирования объектов
-	function copyObj(target, origin) {
-		for (const key in origin) {
-			if (Array.isArray(origin[key])) {
-				target[key] = copyArr([], origin[key]);
-			} else if (typeof origin[key] === "object" && origin[key] !== null) {
-				target[key] = copyObj({}, origin[key]);
-			} else {
-				target[key] = origin[key];
-			}
-		}
-		return target;
-	}
-
-	// Основная функция, проверяющая тип аргумента функции и вызывающая вспомогательные
 	if (Array.isArray(param)) {
-		const newArr = copyArr([], param);
+		const newArr = [];
+		for (let i = 0; i < param.length; i++) {
+			if (Array.isArray(param[i]) || typeof param[i] === "object" && param[i] !== null) {
+				newArr.push(copyAll(param[i]));
+				continue;
+			}
+			newArr.push(param[i]);
+		}
 		return newArr;
 	}
+
 	if (typeof param === "object" && param !== null) {
-		const newObj = copyObj({}, param);
-		return newObj;
+		const result = {};
+		for (const key in param) {
+			if (Array.isArray(param[key]) || typeof param[key] === "object" && param[key] !== null) {
+				result[key] = copyAll(param[key]);
+				continue;
+			}
+			result[key] = param[key];
+		}
+		return result;
 	}
 }
-
 
 const company = {
 	sales: {
@@ -78,16 +63,19 @@ const company = {
 	},
 };
 
+const arr = [1, 2, 3, [4, 5, 6, [7, 8, 9, { a: 1 }]]];
+const arr2 = copyAll(arr);
+
 const company2 = copyAll(company);
 // Тесты
 // Переназначает в новом объекте company2 значания
-company2.development.online[0].odessa[1].name = "Helen";
-company2.development.online[0].odessa[1].salary = 1500;
+company2.sales.online.odessa[0].name = "Chris";
+company2.sales.online.odessa[0].salary = 2000;
 // Выводы в консоль и проверка что в изначальном объекте company значения не изменились
-console.log(company2.development.online[0].odessa[1].name);
-console.log(company.development.online[0].odessa[1].name);
-console.log(company2.development.online[0].odessa[1].salary);
-console.log(company.development.online[0].odessa[1].salary);
+console.log(company2.sales.online.odessa[0].name);
+console.log(company.sales.online.odessa[0].name);
+console.log(company2.sales.online.odessa[0].salary);
+console.log(company.sales.online.odessa[0].salary);
 console.log(company);
 console.log(company2);
 
