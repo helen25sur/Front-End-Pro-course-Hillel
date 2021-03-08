@@ -59,10 +59,9 @@ console.log(compare(user, admin));
 // Функция анализирует строку и возвращает данные о том, сколько раз встретилась та или иная буква
 function analizeString(str) {
 	const result = {};
-	const strToArr = str.split("");
-	for (let i = 0; i < strToArr.length; i++) {
-		let count = (result[strToArr[i]] !== undefined) ? result[strToArr[i]] : 0;
-		result[strToArr[i]] = count + 1;
+	for (let i = 0; i < str.length; i++) {
+		let count = (result[str[i]] !== undefined) ? result[str[i]] : 0;
+		result[str[i]] = count + 1;
 	}
 	return result;
 }
