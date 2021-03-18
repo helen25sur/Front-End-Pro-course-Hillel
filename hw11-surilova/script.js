@@ -25,44 +25,23 @@ squareCards.forEach(function (card) {
 
 // Функция и слушатель клика для смены цвета
 
-function addBlueColor(event) {
-	event.target.classList.remove('grey');
-	event.target.classList.remove('lighten-5');
-	event.target.classList.add('indigo');
-	event.target.classList.add('darken-4');
-}
-
-function addGreenColor(event) {
-	event.target.classList.remove('indigo');
-	event.target.classList.remove('darken-4');
-	event.target.classList.add('green');
-	event.target.classList.add('darken-3');
-}
-
-function addYellowColor(event) {
-	event.target.classList.remove('green');
-	event.target.classList.remove('darken-3');
-	event.target.classList.add('amber');
-	event.target.classList.add('lighten-2');
-}
-
-function addColorDefault(event) {
-	event.target.classList.remove('amber');
-	event.target.classList.remove('lighten-2');
-	event.target.classList.add('grey');
-	event.target.classList.add('lighten-5');
+function addColor(event, startColor, startShade, currentColor, currentShade) {
+	event.target.classList.remove(startColor);
+	event.target.classList.remove(startShade);
+	event.target.classList.add(currentColor);
+	event.target.classList.add(currentShade);
 }
 
 colorCards.forEach(function (card) {
 	card.addEventListener('click', function (event) {
 		if (event.target.classList.contains('grey')) {
-			addBlueColor(event);
+			addColor(event, 'grey', 'lighten-5', 'indigo', 'darken-4');
 		} else if (card.classList.contains('indigo')) {
-			addGreenColor(event);
+			addColor(event, 'indigo', 'darken-4', 'green', 'darken-3');
 		} else if (card.classList.contains('green')) {
-			addYellowColor(event);
+			addColor(event, 'green', 'darken-3', 'amber', 'lighten-2');
 		} else if (card.classList.contains('amber')) {
-			addColorDefault(event);
+			addColor(event, 'amber', 'lighten-2', 'grey', 'lighten-5');
 		}
 	});
 
