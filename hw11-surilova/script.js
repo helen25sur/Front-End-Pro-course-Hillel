@@ -23,26 +23,52 @@ squareCards.forEach(function (card) {
 	});
 });
 
-// Функция и слушатель клика для смены цвета
 
-function addColor(event, startColor, startShade, currentColor, currentShade) {
-	event.target.classList.remove(startColor);
-	event.target.classList.remove(startShade);
-	event.target.classList.add(currentColor);
-	event.target.classList.add(currentShade);
+// Массив с цветами
+const colors = [
+	{
+		startColor: 'grey',
+		startShade: 'lighten-5',
+		currentColor: 'indigo',
+		currentShade: 'darken-4'
+	},
+	{
+		startColor: 'indigo',
+		startShade: 'darken-4',
+		currentColor: 'green',
+		currentShade: 'darken-3'
+	},
+	{
+		startColor: 'green',
+		startShade: 'darken-3',
+		currentColor: 'amber',
+		currentShade: 'lighten-2'
+	},
+	{
+		startColor: 'amber',
+		startShade: 'lighten-2',
+		currentColor: 'grey',
+		currentShade: 'lighten-5'
+	}
+];
+
+// Функция и слушатель клика для смены цвета
+function addColor(event, arr, counter) {
+	event.target.classList.remove(arr[counter].startColor);
+	event.target.classList.remove(arr[counter].startShade);
+	event.target.classList.add(arr[counter].currentColor);
+	event.target.classList.add(arr[counter].currentShade);
 }
 
 colorCards.forEach(function (card) {
+	let counter = 0;
 	card.addEventListener('click', function (event) {
-		if (event.target.classList.contains('grey')) {
-			addColor(event, 'grey', 'lighten-5', 'indigo', 'darken-4');
-		} else if (card.classList.contains('indigo')) {
-			addColor(event, 'indigo', 'darken-4', 'green', 'darken-3');
-		} else if (card.classList.contains('green')) {
-			addColor(event, 'green', 'darken-3', 'amber', 'lighten-2');
-		} else if (card.classList.contains('amber')) {
-			addColor(event, 'amber', 'lighten-2', 'grey', 'lighten-5');
+		console.log(counter);
+		if (counter > 3) {
+			counter = 0;
 		}
+		addColor(event, colors, counter);
+		counter++;
 	});
 
 });
