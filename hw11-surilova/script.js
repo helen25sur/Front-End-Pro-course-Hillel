@@ -23,47 +23,52 @@ squareCards.forEach(function (card) {
 	});
 });
 
+
+// Массив с цветами
+const colors = [
+	{
+		startColor: 'grey',
+		startShade: 'lighten-5',
+		currentColor: 'indigo',
+		currentShade: 'darken-4'
+	},
+	{
+		startColor: 'indigo',
+		startShade: 'darken-4',
+		currentColor: 'green',
+		currentShade: 'darken-3'
+	},
+	{
+		startColor: 'green',
+		startShade: 'darken-3',
+		currentColor: 'amber',
+		currentShade: 'lighten-2'
+	},
+	{
+		startColor: 'amber',
+		startShade: 'lighten-2',
+		currentColor: 'grey',
+		currentShade: 'lighten-5'
+	}
+];
+
 // Функция и слушатель клика для смены цвета
-
-function addBlueColor(event) {
-	event.target.classList.remove('grey');
-	event.target.classList.remove('lighten-5');
-	event.target.classList.add('indigo');
-	event.target.classList.add('darken-4');
-}
-
-function addGreenColor(event) {
-	event.target.classList.remove('indigo');
-	event.target.classList.remove('darken-4');
-	event.target.classList.add('green');
-	event.target.classList.add('darken-3');
-}
-
-function addYellowColor(event) {
-	event.target.classList.remove('green');
-	event.target.classList.remove('darken-3');
-	event.target.classList.add('amber');
-	event.target.classList.add('lighten-2');
-}
-
-function addColorDefault(event) {
-	event.target.classList.remove('amber');
-	event.target.classList.remove('lighten-2');
-	event.target.classList.add('grey');
-	event.target.classList.add('lighten-5');
+function addColor(event, arr, counter) {
+	event.target.classList.remove(arr[counter].startColor);
+	event.target.classList.remove(arr[counter].startShade);
+	event.target.classList.add(arr[counter].currentColor);
+	event.target.classList.add(arr[counter].currentShade);
 }
 
 colorCards.forEach(function (card) {
+	let counter = 0;
 	card.addEventListener('click', function (event) {
-		if (event.target.classList.contains('grey')) {
-			addBlueColor(event);
-		} else if (card.classList.contains('indigo')) {
-			addGreenColor(event);
-		} else if (card.classList.contains('green')) {
-			addYellowColor(event);
-		} else if (card.classList.contains('amber')) {
-			addColorDefault(event);
+		console.log(counter);
+		if (counter > 3) {
+			counter = 0;
 		}
+		addColor(event, colors, counter);
+		counter++;
 	});
 
 });
