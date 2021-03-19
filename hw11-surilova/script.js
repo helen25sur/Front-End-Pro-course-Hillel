@@ -63,8 +63,7 @@ function addColor(event, arr, counter) {
 colorCards.forEach(function (card) {
 	let counter = 0;
 	card.addEventListener('click', function (event) {
-		console.log(counter);
-		if (counter > 3) {
+		if (counter > colors.length - 1) {
 			counter = 0;
 		}
 		addColor(event, colors, counter);
