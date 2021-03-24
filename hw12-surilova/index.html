@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Homework 12</title>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+	<script src="script.js" defer></script>
+	<style>
+		.main-form {
+			padding: 50px 0;
+		}
+	</style>
+</head>
+
+<body>
+ <div class="container">
+ <h2>Homework 12: Elena Surilova</h2>
+</div>
+
+<div class="container container-form"></div>
+<div class="container">
+ <div class="row block-user-data hide">
+  <h4>Введенные данные</h4>
+  <p class="user-data"></p>
+ </div>
+</div>
+
+<script type="text/template" id="form-template">
+ <div class="row">
+   <form class="col s12">
+    <h3><%-title%></h3>
+     <div class="row">
+      <% labels.forEach(function(item) { %>
+      <div class="input-field col s9">
+        <input id="<%-item.inputId%>" type="<%-item.inputType%>" class="validate">
+        <label for="<%-item.inputId%>"><%-item.label%></label>
+       </div>
+       <% }); %>
+     </div>
+     <% buttons.forEach(function(item) { %>
+    <button class="btn waves-effect waves-light" type="<%-item.type%>" name="action"><%-item.text%><i class="material-icons right">send</i>
+    </button>
+    <% }); %>
+   </form>
+  </div>
+  <div class="row">
+   <h3>Введенные данные</h3>
+   <p class="user-data"></p>
+  </div>
+ </script>
+</body>
+</html>
