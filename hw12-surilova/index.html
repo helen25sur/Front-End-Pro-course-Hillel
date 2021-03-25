@@ -21,11 +21,13 @@
 		}
 
 		input.my-validate-error {
+			margin-top: 5px !important;
 			border-bottom: 3px solid red !important;
 			background-color: rgb(240 128 128 / 30%) !important;
 		}
 
-		.error-password {
+		.error-password,
+		.error-email {
 			padding: 15px;
 			background-color: rgb(240 128 128 / 30%);
 			border: 1px solid red;
@@ -43,6 +45,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col s9">
+				<p class="error-email hide">Введите корректный email</p>
 				<p class="error-password hide">Введите пароль, в котором есть хотя бы одна цифра, хотя бы один из символов
 					@$#!?& и всего
 					не меньше восьми символов</p>

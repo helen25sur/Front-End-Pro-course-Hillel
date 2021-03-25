@@ -1,8 +1,11 @@
+// Объявление переменных элементов, которые изначально есть на странице
 const container = document.querySelector('.container-form');
 const blockUserData = document.querySelector('.block-user-data');
 const paragraph = document.querySelector('.user-data');
 const errPassword = document.querySelector('.error-password');
+const errEmail = document.querySelector('.error-email');
 
+// Создание формы из шаблона
 const data = {
 	title: 'Login form',
 	labels: [
@@ -27,6 +30,7 @@ function createElementFromTemplate(templateId, data) {
 const formBlock = createElementFromTemplate('#form-template', data);
 container.appendChild(formBlock);
 
+// Объявление переменных элементов из формы, с которыми происходит дальнейшее взаимодействие
 const form = formBlock.firstElementChild;
 const email = document.querySelector('#email');
 const password = document.querySelector('#password');
@@ -42,6 +46,7 @@ function addDataToObject() {
 	return object;
 }
 
+// Функции с регулярными выражениями для полей email и password
 function validateEmailInput(str) {
 	const regexp = /[a-z0-9]*.+@.+\..+/ig;
 	return regexp.test(str);
@@ -52,6 +57,7 @@ function validatePasswordInput(str) {
 	return regexp.test(str);
 }
 
+// Функции добавления и удаления классов
 function addClass(item, addedClass) {
 	item.classList.add(addedClass);
 }
@@ -60,32 +66,55 @@ function removeClass(item, delClass) {
 	item.classList.remove(delClass);
 }
 
+// Общая функция валидации полей
 function addClassForValidate(input, isValid) {
 	if (isValid) {
 		addClass(input, 'my-validate');
-		if (input === password) {
-			addClass(errPassword, 'hide');
+
+		switch(input) {
+			case password:
+				addClass(errPassword, 'hide');
+				break;
+			case email:
+				addClass(errEmail, 'hide');
+				break;
+			default:
+				break;
 		}
 	} else {
 		removeClass(input, 'my-validate');
 		addClass(input, 'my-validate-error');
-		if (input === password) {
-			removeClass(errPassword, 'hide');
+
+		switch(input) {
+			case password:
+				removeClass(errPassword, 'hide');
+				break;
+			case email:
+				removeClass(errEmail, 'hide');
+				break;
+			default:
+				break;
 		}
 	}
 }
+
+// "Слушатели" полей
+
 let isValidEmail;
+let isValidPassword;
+ // Выношу из функций эти переменные, чтобы дальше использовать для проверки и блокировки кнопки "Отправить"
+
 email.addEventListener('blur', () => {
 	isValidEmail = validateEmailInput(email.value);
 	addClassForValidate(email, isValidEmail);
 });
 
 email.addEventListener('focus', () => {
-	blockUserData.classList.add('hide');
+	addClass(blockUserData, 'hide');
+	addClass(errEmail, 'hide');
 	removeClass(email, 'my-validate-error');
 });
 
-let isValidPassword;
 password.addEventListener('blur', () => {
 	isValidPassword = validatePasswordInput(password.value);
 	addClassForValidate(password, isValidPassword);
@@ -99,15 +128,21 @@ password.addEventListener('focus', () => {
 
 document.querySelectorAll('input').forEach((input) => {
 	input.addEventListener('blur', () => {
-		if (isValidEmail && isValidEmail) {
+		if (isValidEmail && isValidPassword) {
 			btnSubmit.disabled = false;
 		} else {
 			btnSubmit.disabled = true;
 		}
 	});
+	input.addEventListener("keypress", function (event) {
+		if (event.code === 'Enter') {
+			this.blur();
+		}
+	});
 });
 
-form.addEventListener('submit', function (event) {
+// "Слушатель" отправки формы 
+form.addEventListener('submit', (event) => {
 	event.preventDefault();
 	const userData = addDataToObject();
 	const jsonData = JSON.stringify(userData);
@@ -121,26 +156,3 @@ form.addEventListener('submit', function (event) {
 	removeClass(labelEmail, 'active');
 	removeClass(labelPassword, 'active');
 });
-
-
-document.querySelectorAll('input').forEach((event) => {
-	event.addEventListener("keypress", function (event) {
-		if (event.code === 'Enter') {
-			this.blur();
-		}
-	});
-});
-
-
-// Сделать форму логина. Она состоит из поля для ввода почты, поля для ввода пароля и кнопки “отправить”. 
-
-// Кнопка “отправить” показывает введенные данные в формате JSON и очищает поля для ввода. Кнопка заблокирована (disabled) если введены невалидные данные.
-
-//     Почта считается валидной если в ней есть символ @ и точка
-//     задание со “звездочкой” - использовать регулярное выражение для валидации почты
-//     Пароль считается валидным если в нем:
-//     минимум 8 символов
-//     есть хотя бы одна цифра
-//     есть хотя бы один из перечисленных символов: @$#!?&
-
-// Если пользователь ввел невалидные данные, поле для ввода должно выделиться красным цветом.
