@@ -2,6 +2,7 @@
   max-width: 1200px;
   margin: 25px auto;
   min-height: 100vh;
+  position: relative;
 }
 
 .container-time {
@@ -36,30 +37,64 @@
   box-shadow: 5px 10px 15px grey;;
 }
 
-.block-hours {
+.block-first {
   color: darkblue;
 }
 
-.block-minutes {
+.block-second {
   color: blue;
 }
 
-.block-hours,
-.block-minutes {
+.block-first,
+.block-second {
   /* margin-right: 45px; */
   width: 230px;
   position: relative;
 }
 
-.block-seconds {
+.block-third {
   width: 230px;
   color: cornflowerblue;
 }
 
-.block-hours::after,
-.block-minutes::after {
+.block-first::after,
+.block-second::after {
  content: ':';
  position: absolute;
  width: 30px;
  height: 70px;
+}
+
+#type-time {
+  display: none;
+  position: absolute;
+  z-index: 11;
+  right: -52px;
+  top: 207px;
+  background-color: blanchedalmond;
+  border: 3px solid burlywood;
+  width: 300px;
+  height: 50px;
+  border-radius: 5px;
+}
+
+
+.setting {
+  position: absolute;
+  right: 243px;
+  top: 193px;
+  z-index: 10;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.container-date {
+  font-family: 'Orbitron', sans-serif;
+  text-align: center;
+  position: relative;
+  z-index: 3;
+  bottom: 141px;
+  font-size: 44px;
+  color: darkslateblue;
 }
