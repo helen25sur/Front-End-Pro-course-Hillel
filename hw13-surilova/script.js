@@ -21,18 +21,13 @@ Unit.prototype.isReadyToFight = function() {
 };
 
 Unit.prototype.restore = function() {
-  if (this.health < this.maxHealth) {
-    this.health = this.maxHealth;
-    return this.health;
-  }
+  this.health = this.maxHealth;
+  return this;
 };
 
 Unit.prototype.clone = function() {
   return {
-    type: this.type,
-    health: this.health,
-    maxHealth: this.maxHealth,
-    maxDistance: this.maxDistance
+    __proto__:  this,
   };
 };
 
@@ -46,19 +41,19 @@ function Army(defaultUnits) {
 }
 
 Army.prototype.isReadyToMove = function(distance) {
-  return this.units.every(item => item.maxDistance >= distance);
+  return this.units.every(item => item.isReadyToMove(distance));
 };
 
 Army.prototype.isReadyToFight = function() {
-  return this.units.every(item => item.health >= (item.maxHealth / 2));
+  return this.units.every(item => item.isReadyToFight());
 };
 
 Army.prototype.restore = function() {
-  return this.units.map(item => item.health = item.maxHealth);
+  return this.units.map(item => item.restore());
 };
 
 Army.prototype.getReadyToMoveUnits = function(distance) {
-  return this.units.filter(item => item.maxDistance >= distance);
+  return this.units.filter(item => item.isReadyToMove(distance));
 };
 
 Army.prototype.combineUnits = function(arrUnits) {
@@ -66,12 +61,7 @@ Army.prototype.combineUnits = function(arrUnits) {
 };
 
 Army.prototype.cloneUnit = function(index) {
-  return {
-    type: this.units[index].type,
-    health: this.units[index].health,
-    maxHealth: this.units[index].maxHealth,
-    maxDistance: this.units[index].maxDistance
-  };
+  return this.units[index].clone();
 };
 
 const u1 = new Unit('type1', '950', '950', '1000');
@@ -87,7 +77,7 @@ const unitArmy2 = [u5, u6];
 
 const newArmy = new Army(unitArmy);
 
-// newArmy.combineUnits(unitArmy2);
+newArmy.combineUnits(unitArmy2);
 
 
 // Животное -> Млекопитающее -> Енот
@@ -125,4 +115,4 @@ const raccoon = {
   }
 };
 
-console.log(raccoon);
+// console.log(raccoon);
