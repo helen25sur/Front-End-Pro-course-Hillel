@@ -1,88 +1,98 @@
-function createElements(tagName, listClasses, parent, text) {
-	const newElem = document.createElement(tagName);
-	for (const newClass of listClasses) {
-		newElem.classList.add(newClass);
-	}
-	newElem.textContent = text;
-	parent.prepend(newElem);
-	return newElem;
-}
+const storageKey = 'user-name-data-';
 
-const container = createElements('div', ['container'], document.body, '');
-const container2 = createElements('div', ['row'], container, '');
-const containerColl = createElements('div', ['col', 's12'], container2, '');
-
-// Создание поля ввода и кнопки Отправить
-function createForm() {
-	const form = createElements('form', ['main-form'], container, '');
-	const containerRow = createElements('div', ['row', 'valign-wrapper'], form, '');
-	const containerButton = createElements('div', ['col', 's3'], containerRow, '');
-	const inputField = createElements('div', ['input-field', 'col', 's9'], containerRow, '');
-	const inputFullName = createElements('input', ['validate'], inputField, '');
-	inputFullName.placeholder = 'Введите Ваше имя';
-	inputFullName.id = 'full_name';
-	inputFullName.type = 'text';
-
-	const label = createElements('label', ['label'], inputField, 'Имя пользователя');
-	label.for = 'full_name';
-
-	const buttonSubmit = createElements('button', ['waves-effect', 'waves-light', 'btn', 'green', 'darken-3'], containerButton, 'Отправить');
-	buttonSubmit.type = 'submit';
-	buttonSubmit.name = 'action';
-	const iconForSubmit = createElements('i', ['material-icons', 'right'], buttonSubmit, 'send');
-
-	return { form, inputFullName, buttonSubmit };
-}
-
-const form = createForm();
-
-// Создание списка пользователей
-const listUser = createElements('ul', ['collection'], containerColl, '');
-
-function createListItem(parent, name) {
-	const listItem = createElements('li', ['collection-item'], parent, '');
-	const span = createElements('span', ['user-name'], listItem, name);
-	const btnEdit = createElements('a', ['waves-effect', 'waves-light', 'green', 'lighten-1', 'btn-small', 'right', 'edit'], listItem, 'Редактировать');
-	const iconEdit = createElements('i', ['material-icons', 'right'], btnEdit, 'edit');
-	const btnDelete = createElements('a', ['waves-effect', 'waves-light', 'red', 'lighten-2', 'btn-small', 'right', 'delete'], listItem, 'Удалить');
-	const iconDelete = createElements('i', ['material-icons', 'right'], btnDelete, 'delete');
-
-	return listItem;
-}
-
-
-createListItem(listUser, 'John Joe');
-createListItem(listUser, 'Alvin Joe');
-createListItem(listUser, 'Ivan Ivanov');
-
-
-// Слушатели событий
-form.buttonSubmit.addEventListener('click', function (event) {
-	event.preventDefault();
-	let button = event.target.closest('.btn');
-	if (button) {
-		createListItem(listUser, form.inputFullName.value);
-		form.inputFullName.value = '';
-	}
+const form = new Form({
+  className: 'main-form',
 });
 
-listUser.addEventListener('click', function (event) {
-	const btnEdit = event.target.closest('.edit');
-	const rowTarget = event.target.closest('.collection-item');
-	const span = rowTarget.querySelector('.user-name');
-	if (btnEdit) {
-		let newValue = prompt('Введите новое значение', `${span.textContent}`);
-		newValue = newValue.trim();
-		if (newValue) {
-			span.textContent = newValue;
-		}
-	}
+const input = new Input({
+  className: 'input-username',
+  placeholder: 'Введите ваше имя',
+  id: 'username',
+  type: 'text',
+});
 
-	const btnDelete = event.target.closest('.delete');
-	if (btnDelete) {
-		const answer = confirm('Вы действительно хотите удалить это значение?');
+const submitButton = new Button ({
+  className: 'btn-submit',
+  type: 'submit',
+  text: 'Отправить',
+});
+
+const listUser = new List({
+  className: 'list-username',
+});
+
+let itemList1 = new ListItem({
+  className: 'item-username',
+  value: 'Alex Lenz'
+});
+let itemList2 = new ListItem({
+  className: 'item-username',
+  value: 'Peter Parker'
+});
+let itemList3 = new ListItem({
+  className: 'item-username',
+  value: 'Harry Potter'
+});
+
+const container = document.body.querySelector('.container');
+container.appendChild(form.render());
+
+const formOnPage = document.body.querySelector('.main-form');
+formOnPage.appendChild(input.render());
+formOnPage.appendChild(submitButton.render());
+
+container.appendChild(listUser.render());
+
+const listUserOnPage = document.body.querySelector('.list-username');
+
+itemList1.saveData();
+itemList2.saveData();
+itemList3.saveData();
+
+formOnPage.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const value = document.body.querySelector('.input-username').value;
+  if (value.length) {
+    const itemList = new ListItem({
+      className: 'item-username',
+      value: value
+    });
+    listUserOnPage.prepend(itemList.render());
+    itemList.saveData();
+    document.body.querySelector('.input-username').value = '';
+  }
+});
+
+for (const key in localStorage) {
+  if (localStorage.hasOwnProperty(key)) {
+    const itemList = new ListItem({
+      className: 'item-username',
+      value: localStorage.getItem(key)
+    });
+
+    listUserOnPage.appendChild(itemList.render());
+  }
+}
+
+
+listUserOnPage.addEventListener('click', (event) => {
+  const rowTarget = event.target.closest('.item-username');
+  const span = rowTarget.querySelector('.username-span');
+
+
+  if (event.target.closest('.btn-edit')) {
+    let newValue = prompt('Введите новое значение', `${span.innerText}`);
+    newValue = newValue.trim();
+    localStorage.removeItem(`${storageKey}${span.innerText}`);
+    span.innerText = newValue;
+    localStorage.setItem(`${storageKey}${newValue}`, `${newValue}`);
+  }
+
+  if (event.target.closest('.btn-delete')) {
+    const answer = confirm('Вы действительно хотите удалить это значение?');
 		if (answer) {
 			rowTarget.remove();
+      localStorage.removeItem(`${storageKey}${span.innerText}`);
 		}
-	}
+  }
 });
