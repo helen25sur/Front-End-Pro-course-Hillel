@@ -21,18 +21,24 @@ const listUser = new List({
   className: 'list-username',
 });
 
-let itemList1 = new ListItem({
-  className: 'item-username',
-  value: 'Alex Lenz'
-});
-let itemList2 = new ListItem({
-  className: 'item-username',
-  value: 'Peter Parker'
-});
-let itemList3 = new ListItem({
-  className: 'item-username',
-  value: 'Harry Potter'
-});
+if (localStorage.length === 0) {
+	let itemList1 = new ListItem({
+		className: 'item-username',
+		value: 'Alex Lenz'
+	});
+	let itemList2 = new ListItem({
+		className: 'item-username',
+		value: 'Peter Parker'
+	});
+	let itemList3 = new ListItem({
+		className: 'item-username',
+		value: 'Harry Potter'
+	});
+
+	itemList1.saveData();
+	itemList2.saveData();
+	itemList3.saveData();
+}
 
 const container = document.body.querySelector('.container');
 container.appendChild(form.render());
@@ -45,9 +51,7 @@ container.appendChild(listUser.render());
 
 const listUserOnPage = document.body.querySelector('.list-username');
 
-itemList1.saveData();
-itemList2.saveData();
-itemList3.saveData();
+
 
 formOnPage.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -65,12 +69,17 @@ formOnPage.addEventListener('submit', (event) => {
 
 for (const key in localStorage) {
   if (localStorage.hasOwnProperty(key)) {
-    const itemList = new ListItem({
-      className: 'item-username',
-      value: localStorage.getItem(key)
-    });
+		try {
+			const itemList = new ListItem({
+				className: 'item-username',
+				value: localStorage.getItem(key)
+			});
+			listUserOnPage.appendChild(itemList.render());
 
-    listUserOnPage.appendChild(itemList.render());
+		} catch (err) {
+			console.error(`Something went wrong ${err}`);
+		}
+
   }
 }
 
