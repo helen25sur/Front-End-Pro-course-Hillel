@@ -1,6 +1,7 @@
 class Chat {
   #stoppedWords;
   #buttonSubmit;
+  #textarea;
 
   constructor() {
     this.#stoppedWords = [
@@ -13,6 +14,9 @@ class Chat {
       'Good Bye',
       'Bye',
     ];
+
+    this.#textarea = document.querySelector('.new-message-field');
+
     this.#buttonSubmit = document.createElement('button');
     this.#buttonSubmit.className = 'btn-submit';
     this.#buttonSubmit.innerHTML = 'Submit message';
@@ -20,6 +24,13 @@ class Chat {
     this.#buttonSubmit.addEventListener('click', () => {
       this.sendMessage();
     });
+
+    this.#textarea.addEventListener('keypress', (event) => {
+      if (event.code === 'Enter') {
+        event.preventDefault();
+        this.sendMessage();
+      }
+    })
   }
 
   wait() {
