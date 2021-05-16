@@ -1,0 +1,11 @@
+*,
+::after,
+::before {
+  margin: 0;
+}
+
+h1 {
+  color: lightskyblue;
+  text-align: center;
+  font-size: 36px;
+}
