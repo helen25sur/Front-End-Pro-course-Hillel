@@ -4,6 +4,8 @@
   margin: 0;
 }
 
+/* test */
+
 header {
   margin-right: -15px;
   margin-left: -15px;
@@ -64,4 +66,12 @@ main {
 .btn-add-field:hover svg,
 .btn-remove-field:hover svg {
   fill: #ffffff;
+}
+
+/* Additional my styles */
+
+.list-movies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
 }
