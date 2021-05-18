@@ -1,6 +1,10 @@
 import {arrMovies} from '../card-movie/infMovies';
 import {CardMovie} from '../card-movie/CardMovie';
-import {ModalEditMovie} from '../card-movie/editMovie';
+import {PageMovie} from '../page-movie/PageMovie';
+import {ModalEditMovie} from '../modal-window/ModalEditMovie';
+
+import {appHistory} from '../historyApp';
+
 
 // import modal from './../card-movie/addNew.html'
 
@@ -18,15 +22,37 @@ export class ListMovies {
       const resp = confirm('Вы хотите удалить этот фильм?');
       if (resp) {
         card.remove();
+        // удалить и из массива тоже
       }
     }
 
     if (event.target.closest('.btn-edit')) {
-      const modal = document.querySelector('.modal');
-      console.log(modal);
-      $(modal).modal({
-        keyboard: false
+      // const modal = document.querySelector('.modal');
+      const modal = new ModalEditMovie();
+      document.body.appendChild(modal._element);
+      console.log(modal._element);
+      $(modal._element).modal({
+        keyboard: true
       });
+      $(modal._element).on('hide.bs.modal', function () {
+        modal._element.remove();
+      })
+    }
+
+    if (event.target.closest('.more')) {
+      event.preventDefault();
+      const containerMovie = event.target.closest('.card-body');
+      const nameMovie = containerMovie.querySelector('.card-title').innerText;
+      const needMovieElement = arrMovies.filter(item => {
+        if (item.titleMovie === nameMovie) {
+          return item;
+        }
+      })[0];
+      // console.log(needMovieElement);
+      // const pageMovie = new PageMovie(arrMovies[0]);
+      // console.log(pageMovie.id);
+      appHistory.push({ hash: `#list-${needMovieElement.id}`});
+
     }
   }
 
