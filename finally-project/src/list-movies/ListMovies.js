@@ -27,10 +27,17 @@ export class ListMovies {
     }
 
     if (event.target.closest('.btn-edit')) {
-      // const modal = document.querySelector('.modal');
-      const modal = new ModalEditMovie();
+
+      const containerMovie = event.target.closest('.no-gutters');     //найти способ переиспользовать код здесь и на строке 51
+      const nameMovie = containerMovie.querySelector('.card-title').innerText;
+      const needMovieElement = arrMovies.filter(item => {
+        if (item.titleMovie === nameMovie) {
+          return item;
+        }
+      })[0];
+      const modal = new ModalEditMovie(needMovieElement);
       document.body.appendChild(modal._element);
-      console.log(modal._element);
+      // console.log(modal._element);
       $(modal._element).modal({
         keyboard: true
       });
@@ -48,9 +55,6 @@ export class ListMovies {
           return item;
         }
       })[0];
-      // console.log(needMovieElement);
-      // const pageMovie = new PageMovie(arrMovies[0]);
-      // console.log(pageMovie.id);
       appHistory.push({ hash: `#list-${needMovieElement.id}`});
 
     }
