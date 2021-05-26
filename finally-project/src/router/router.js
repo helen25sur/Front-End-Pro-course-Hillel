@@ -2,7 +2,7 @@ import {Header} from './../header/Header';
 import {CardMovie} from './../card-movie/CardMovie';
 import {PageMovie} from '../page-movie/PageMovie';
 import {ListMovies} from './../list-movies/ListMovies';
-import {ModalWindow} from './../modal-window/ModalWindow';
+import {ModalNewMovie} from './../modal-window/ModalNewMovie';
 
 import {arrMovies} from '../card-movie/infMovies';
 
@@ -35,7 +35,7 @@ export function renderRoute(pathname) {
     case '#list': {
       mainContent.innerHTML = '';
 
-      const list = new ListMovies();
+      const list = new ListMovies(arrMovies);
       mainContent.appendChild(list.render());
       break;
     }
