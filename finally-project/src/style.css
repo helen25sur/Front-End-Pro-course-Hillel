@@ -75,3 +75,7 @@ main {
   flex-wrap: wrap;
   gap: 20px;
 }
+
+/* .form-control:invalid {
+  border: 2px solid lightpink;
+} */

@@ -1,28 +1,35 @@
-import {BaseComponent} from '../baseComponents';
-import {ListMovies} from '../list-movies/ListMovies';
+import { BaseComponent } from '../baseComponents';
+import { ListMovies } from '../list-movies/ListMovies';
 
 import html from './ModalEditMovie.html';
-import {arrMovies} from '../card-movie/infMovies';
+import { arrMovies } from '../card-movie/infMovies';
+import { validationForm } from '../validation/validation';
 export class ModalEditMovie extends BaseComponent {
   #allFieldsForm;
+  #form;
+  #loadPosterInput;
 
   constructor(data) {
     super(html, data);
     this.data = data;
     this.#allFieldsForm = this._element.querySelectorAll('.form-control');
+    this.#form = this._element.querySelector('#modal-window');
+    this.#form.addEventListener('submit', this.saveRenderData.bind(this));
+
     this.#allFieldsForm.forEach(field => field.addEventListener('input', this.onInput.bind(this)));
+    this.#allFieldsForm.forEach(field => field.addEventListener('blur', validationForm));
+
+    this.#loadPosterInput = this._element.querySelector('.custom-file-input');
+    this.#loadPosterInput.addEventListener('change', this.loadPicture.bind(this));
   }
 
-  saveRenderData() {
-    const saveBtn = this._element.querySelector('.save-data');
-    saveBtn.addEventListener('click', () => {
-      $(this._element).modal('hide');
-      const mainContent = document.querySelector('#content');
-      mainContent.innerHTML = '';
-      // console.log(arrMovies);
-      const newList = new ListMovies(arrMovies);
-      mainContent.appendChild(newList.render());
-    });
+  saveRenderData(event) {
+    event.preventDefault();
+    $(this._element).modal('hide');
+    const mainContent = document.querySelector('#content');
+    mainContent.innerHTML = '';
+    const newList = new ListMovies(arrMovies);
+    mainContent.appendChild(newList.render());
   }
 
   onInput(event) {
@@ -34,8 +41,22 @@ export class ModalEditMovie extends BaseComponent {
         return item;
       }
     })[0];
-    currentMovie[key] = localStorage.getItem(`${this.data.id}:${key}`);
-    this.saveRenderData();
+    if (key === 'cast') {
+      currentMovie.cast = localStorage.getItem(`${this.data.id}:cast`).split(',');
+    } else {
+      currentMovie[key] = localStorage.getItem(`${this.data.id}:${key}`);
+    }
   }
 
+  loadPicture() {
+    const file = this.#loadPosterInput.files[0];
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const img = new Image();
+      this.data.srcImg = reader.result;
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  }
 }
