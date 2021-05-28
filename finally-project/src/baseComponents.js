@@ -1,6 +1,6 @@
 import template from 'lodash.template';
 // import {defaultTo} from 'lodash.defaultto';
-const emptyObj = { screenplay: '',  producer: '',  cameraman: '',  composer: '',  textDescription:  '',  textRange: '',};
+const emptyObj = {srcImg: 'https://serial-go.org/uploads/no_poster.jpg', screenplay: '',  producer: '',  cameraman: '',  composer: '',  textDescription:  '',  textRange: '',};
 
 function renderTemplate(html, data) {
   const tmpl = template(html, { 'imports': emptyObj });

@@ -5,6 +5,7 @@ import {ListMovies} from './../list-movies/ListMovies';
 import {ModalNewMovie} from './../modal-window/ModalNewMovie';
 
 import {arrMovies} from '../card-movie/infMovies';
+import {readLocalStorage} from '../local-Storage/readLocalStorage';
 
 import {appHistory} from '../historyApp';
 
@@ -35,6 +36,7 @@ export function renderRoute(pathname) {
     case '#list': {
       mainContent.innerHTML = '';
 
+      readLocalStorage(arrMovies);
       const list = new ListMovies(arrMovies);
       mainContent.appendChild(list.render());
       break;

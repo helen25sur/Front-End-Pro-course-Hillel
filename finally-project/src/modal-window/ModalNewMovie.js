@@ -24,8 +24,8 @@ export class ModalNewMovie extends BaseComponent {
     this.#form = this._element.querySelector('#modal-window');
     this.#form.addEventListener('submit', this.saveRenderData.bind(this));
 
-    this.#loadPosterInput = this._element.querySelector('.custom-file-input');
-    this.#loadPosterInput.addEventListener('change', this.loadPicture.bind(this));
+    // this.#loadPosterInput = this._element.querySelector('.custom-file-input');
+    // this.#loadPosterInput.addEventListener('change', this.loadPicture.bind(this));
   }
 
   saveRenderData(event) {
@@ -33,19 +33,19 @@ export class ModalNewMovie extends BaseComponent {
     event.preventDefault();
     $(this._element).modal('hide');
     this.newMovie.id = this._id;
-    this.#allFieldsForm.forEach(field => {
-      const key = field.dataset.key;
-      if (key === 'cast') {
-        this.newMovie.cast = localStorage.getItem(`${this._id}:cast`).split(',');
-      } else {
-        this.newMovie[key] = localStorage.getItem(`${this._id}:${key}`);
-      }
-    });
-    arrMovies.push(this.newMovie);
+    // this.#allFieldsForm.forEach(field => {
+    //   const key = field.dataset.key;
+    //   if (key === 'cast') {
+    //     this.newMovie.cast = localStorage.getItem(`${this._id}:cast`).split(',');
+    //   } else {
+    //     this.newMovie[key] = localStorage.getItem(`${this._id}:${key}`);
+    //   }
+    // });
+    // arrMovies.push(this.newMovie);
 
-    const listMovies = document.querySelector('.list-movies');
-    const newMovie = new CardMovie(this.newMovie);
-    listMovies.appendChild(newMovie.render());
+    // const listMovies = document.querySelector('.list-movies');
+    // const newMovie = new CardMovie(this.newMovie);
+    // listMovies.appendChild(newMovie.render());
 
   }
 

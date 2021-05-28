@@ -18,7 +18,7 @@ export class CardMovie extends BaseComponent {
       const resp = confirm('Вы хотите удалить этот фильм?');
       if (resp) {
         const needIndex = arrMovies.findIndex((element, index, array)=>{
-          if(element.id === this.data.id) {
+          if (element.id === this.data.id) {
             return index;
           }
         });

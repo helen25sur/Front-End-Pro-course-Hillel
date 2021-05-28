@@ -1,6 +1,7 @@
 export function validationForm () {
   const form = document.querySelector('#modal-window');
   const allFields = form.querySelectorAll('input, textarea');
+  const btn = form.querySelector('.save-data');
 
   allFields.forEach(field => {
     field.addEventListener('focusout', (event) => {
@@ -15,6 +16,13 @@ export function validationForm () {
       event.target.classList.remove('is-invalid');
       event.target.classList.remove('is-valid');
     });
+  });
 
+  Array.from(allFields).every((field) => {
+    if (field.matches('.is-invalid')) {
+      btn.disabled = true;
+    } else {
+      btn.disabled = false;
+    }
   });
 }

@@ -2,7 +2,6 @@
 import {CardMovie} from '../card-movie/CardMovie';
 
 // import modal from './../card-movie/addNew.html'
-
 export class ListMovies {
   #listMovies;
   constructor(data) {

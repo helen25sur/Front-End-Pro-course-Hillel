@@ -76,6 +76,6 @@ main {
   gap: 20px;
 }
 
-/* .form-control:invalid {
-  border: 2px solid lightpink;
-} */
+.movie-details {
+  width: 95%;
+}

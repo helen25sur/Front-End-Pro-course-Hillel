@@ -4,6 +4,7 @@ import { ListMovies } from '../list-movies/ListMovies';
 import html from './ModalEditMovie.html';
 import { arrMovies } from '../card-movie/infMovies';
 import { validationForm } from '../validation/validation';
+import {readLocalStorage} from '../local-Storage/readLocalStorage';
 export class ModalEditMovie extends BaseComponent {
   #allFieldsForm;
   #form;
@@ -28,6 +29,7 @@ export class ModalEditMovie extends BaseComponent {
     $(this._element).modal('hide');
     const mainContent = document.querySelector('#content');
     mainContent.innerHTML = '';
+    readLocalStorage(arrMovies);
     const newList = new ListMovies(arrMovies);
     mainContent.appendChild(newList.render());
   }
@@ -41,11 +43,11 @@ export class ModalEditMovie extends BaseComponent {
         return item;
       }
     })[0];
-    if (key === 'cast') {
-      currentMovie.cast = localStorage.getItem(`${this.data.id}:cast`).split(',');
-    } else {
-      currentMovie[key] = localStorage.getItem(`${this.data.id}:${key}`);
-    }
+    // if (key === 'cast') {
+    //   currentMovie.cast = localStorage.getItem(`${this.data.id}:cast`).split(',');
+    // } else {
+    //   currentMovie[key] = localStorage.getItem(`${this.data.id}:${key}`);
+    // }
   }
 
   loadPicture() {
