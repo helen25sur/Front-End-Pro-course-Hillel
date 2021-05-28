@@ -24,7 +24,7 @@ export class PageMovie extends BaseComponent {
     }
 
     if (localStorage.getItem(`${this.id}:dislike`) !== null) {
-      let counterDislike = Number(localStorage.getItem(`${this.id}:dislike`));
+      counterDislike = Number(localStorage.getItem(`${this.id}:dislike`));
       btnDislike.dataset.count = counterDislike;
     } else {
       counterDislike = Number(btnDislike.dataset.count);
@@ -39,12 +39,10 @@ export class PageMovie extends BaseComponent {
       counterDislike++;
       btnDislike.dataset.count = counterDislike;
       localStorage.setItem(`${this.id}:dislike`, counterDislike);
-
     });
-
   }
 
-  get id () {
+  get id() {
     return this.data.id;
   }
 }

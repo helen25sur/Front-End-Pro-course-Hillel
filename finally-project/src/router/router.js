@@ -6,17 +6,18 @@ import {ModalNewMovie} from './../modal-window/ModalNewMovie';
 
 import {arrMovies} from '../card-movie/infMovies';
 import {readLocalStorage} from '../local-Storage/readLocalStorage';
+import {writeToLocalStorage} from '../local-Storage/writeToLocalStorage';
 
 import {appHistory} from '../historyApp';
 
 const mainContent = document.querySelector('#content');
 
 export function renderRoute(pathname) {
-  function findOnId (pathname) {
+  function findOnId(pathname) {
     const regexp = /^#list-[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
     if (regexp.test(pathname)) {
       const id = pathname.slice(6);
-      const value = arrMovies.filter(item => {
+      const value = arrMovies.filter((item) => {
         if (item.id === id) {
           return item;
         }
@@ -39,6 +40,7 @@ export function renderRoute(pathname) {
       readLocalStorage(arrMovies);
       const list = new ListMovies(arrMovies);
       mainContent.appendChild(list.render());
+      writeToLocalStorage(arrMovies);
       break;
     }
 
