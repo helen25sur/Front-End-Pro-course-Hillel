@@ -1,6 +1,6 @@
 // import {arrMovies} from '../card-movie/infMovies';
 import {CardMovie} from '../card-movie/CardMovie';
-import {writeToLocalStorage} from '../local-Storage/writeToLocalStorage';
+// import {writeToLocalStorage} from '../local-Storage/writeToLocalStorage';
 // import modal from './../card-movie/addNew.html'
 export class ListMovies {
   #listMovies;
@@ -15,7 +15,7 @@ export class ListMovies {
     this.data.forEach((item) => {
       const movie = new CardMovie(item);
       this.#listMovies.appendChild(movie.render());
-      writeToLocalStorage(item);
+      // writeToLocalStorage(item);
     });
 
     return this.#listMovies;

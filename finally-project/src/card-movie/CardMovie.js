@@ -3,11 +3,14 @@ import '@babel/polyfill';
 import {BaseComponent} from '../baseComponents';
 import {appHistory} from '../historyApp';
 
-import {ModalEditMovie} from '../modal-window/ModalEditMovie';
+// import {ModalEditMovie} from '../modal-window/ModalEditMovie';
+import {ModalWindow} from '../modal-window/ModalWindow';
 import {arrMovies} from '../card-movie/infMovies';
 import html from './cardMovie.html';
 
-// import {removeItemLocalStorage} from '../local-Storage/removeItemLocalStorage';
+import htmlEdit from '../modal-window/ModalEditMovie.html';
+
+import {removeItemLocalStorage} from '../local-Storage/removeItemLocalStorage';
 export class CardMovie extends BaseComponent {
   constructor(data) {
     super(html, data);
@@ -17,7 +20,6 @@ export class CardMovie extends BaseComponent {
   }
 
   onClick(event) {
-    // const card = event.target.closest('.card');
     if (event.target.closest('.btn-delete')) {
       const resp = confirm('Вы хотите удалить этот фильм?');
       if (resp) {
@@ -36,12 +38,13 @@ export class CardMovie extends BaseComponent {
           arrMovies.splice(needIndex, 1);
           console.log(arrMovies);
         }
+        removeItemLocalStorage(this.data.id);
         this._element.remove();
       }
     }
 
     if (event.target.closest('.btn-edit')) {
-      const modal = new ModalEditMovie(this.data);
+      const modal = new ModalWindow(htmlEdit, this.data);
       document.body.appendChild(modal._element);
       $(modal._element).modal();
       $(modal._element).on('hidden.bs.modal', function (e) {

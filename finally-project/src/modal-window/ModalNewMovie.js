@@ -1,16 +1,18 @@
-import { v4 as uuidv4 } from 'uuid';
-import { BaseComponent } from "../baseComponents";
-import { CardMovie } from '../card-movie/CardMovie';
-import { appHistory } from '../historyApp';
+import {v4 as uuidv4} from 'uuid';
+import {BaseComponent} from '../baseComponents';
+import {CardMovie} from '../card-movie/CardMovie';
+import {appHistory} from '../historyApp';
 
-import { arrMovies } from './../card-movie/infMovies';
+import {arrMovies} from './../card-movie/infMovies';
 import html from './ModalNewMovie.html';
-import { validationForm } from '../validation/validation';
+import {validationForm} from '../validation/validation';
+import {OptionalField} from './optional-field/OptionalField';
 
 export class ModalNewMovie extends BaseComponent {
   #allFieldsForm;
   #loadPosterInput;
   #form;
+  #btnAddNewField;
 
   constructor() {
     super(html, {});
@@ -18,18 +20,21 @@ export class ModalNewMovie extends BaseComponent {
     this._id = uuidv4();
 
     this.#allFieldsForm = this._element.querySelectorAll('.form-control');
-    this.#allFieldsForm.forEach(field => field.addEventListener('input', this.onInput.bind(this)));
-    this.#allFieldsForm.forEach(field => field.addEventListener('blur', validationForm));
+    this.#allFieldsForm.forEach((field) => field.addEventListener('input', this.onInput.bind(this)));
+    this.#allFieldsForm.forEach((field) => field.addEventListener('blur', validationForm));
 
     this.#form = this._element.querySelector('#modal-window');
     this.#form.addEventListener('submit', this.saveRenderData.bind(this));
+
+    this.#btnAddNewField = this._element.querySelector('.btn-add-field');
+    this.#btnAddNewField.addEventListener('click', this.addNewField.bind(this));
 
     // this.#loadPosterInput = this._element.querySelector('.custom-file-input');
     // this.#loadPosterInput.addEventListener('change', this.loadPicture.bind(this));
   }
 
   saveRenderData(event) {
-    appHistory.push({ hash: '#list' });
+    appHistory.push({hash: '#list'});
     event.preventDefault();
     $(this._element).modal('hide');
     this.newMovie.id = this._id;
@@ -46,7 +51,6 @@ export class ModalNewMovie extends BaseComponent {
     // const listMovies = document.querySelector('.list-movies');
     // const newMovie = new CardMovie(this.newMovie);
     // listMovies.appendChild(newMovie.render());
-
   }
 
   onInput(event) {
@@ -67,5 +71,17 @@ export class ModalNewMovie extends BaseComponent {
     reader.readAsDataURL(file);
   }
 
+  addNewField() {
+    // <fieldset class="form-group">
+    const fieldset = this._element.querySelector('fieldset.form-group');
 
+    const containerField = document.createElement('div');
+    containerField.classList.add('form-group');
+    containerField.classList.add('row');
+
+    const newField = new OptionalField();
+    containerField.append(newField.render());
+
+    fieldset.appendChild(containerField);
+  }
 }

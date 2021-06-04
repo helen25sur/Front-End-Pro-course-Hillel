@@ -1,6 +1,8 @@
 // import {BaseComponent} from '../baseComponents';
 import {appHistory} from '../historyApp';
-import {ModalNewMovie} from '../modal-window/ModalNewMovie';
+// import {ModalNewMovie} from '../modal-window/ModalNewMovie';
+import {ModalWindow} from '../modal-window/ModalWindow';
+import htmlNew from '../modal-window/ModalNewMovie.html';
 
 export class Header {
   #btnAllMovies;
@@ -21,7 +23,7 @@ export class Header {
   }
 
   createNewMovie() {
-    const newModal = new ModalNewMovie();
+    const newModal = new ModalWindow(htmlNew);
     document.body.appendChild(newModal._element);
     $(newModal._element).modal();
   }

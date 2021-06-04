@@ -7,6 +7,7 @@ export class PageMovie extends BaseComponent {
     super(html, data);
     this.data = data;
     this.countLikes();
+    this.addOptionalInformation();
   }
 
   countLikes() {
@@ -40,6 +41,29 @@ export class PageMovie extends BaseComponent {
       btnDislike.dataset.count = counterDislike;
       localStorage.setItem(`${this.id}:dislike`, counterDislike);
     });
+  }
+
+  addOptionalInformation() {
+    const movieInf = this._element.querySelector('ul.movie-info');
+    for (let i = 0; i < localStorage.length; i++) {
+      if (localStorage.key(i).includes(this.id) && localStorage.getItem(localStorage.key(i)).includes('optional')) {
+        const li = document.createElement('li');
+        const professionText = document.createElement('p');
+        const nameText = document.createElement('p');
+
+        li.classList.add('d-flex');
+        professionText.classList.add('col-3');
+        nameText.classList.add('col-9');
+
+        professionText.innerText = localStorage.key(i).slice(37).toLowerCase();
+        nameText.innerText = localStorage.getItem(localStorage.key(i)).slice(9);
+
+        li.appendChild(professionText);
+        li.appendChild(nameText);
+
+        movieInf.appendChild(li);
+      }
+    }
   }
 
   get id() {

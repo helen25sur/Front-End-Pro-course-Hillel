@@ -1,9 +1,9 @@
-import { BaseComponent } from '../baseComponents';
-import { ListMovies } from '../list-movies/ListMovies';
+import {BaseComponent} from '../baseComponents';
+import {ListMovies} from '../list-movies/ListMovies';
 
 import html from './ModalEditMovie.html';
-import { arrMovies } from '../card-movie/infMovies';
-import { validationForm } from '../validation/validation';
+import {arrMovies} from '../card-movie/infMovies';
+import {validationForm} from '../validation/validation';
 import {readLocalStorage} from '../local-Storage/readLocalStorage';
 export class ModalEditMovie extends BaseComponent {
   #allFieldsForm;
@@ -17,8 +17,8 @@ export class ModalEditMovie extends BaseComponent {
     this.#form = this._element.querySelector('#modal-window');
     this.#form.addEventListener('submit', this.saveRenderData.bind(this));
 
-    this.#allFieldsForm.forEach(field => field.addEventListener('input', this.onInput.bind(this)));
-    this.#allFieldsForm.forEach(field => field.addEventListener('blur', validationForm));
+    this.#allFieldsForm.forEach((field) => field.addEventListener('input', this.onInput.bind(this)));
+    this.#allFieldsForm.forEach((field) => field.addEventListener('blur', validationForm));
 
     this.#loadPosterInput = this._element.querySelector('.custom-file-input');
     this.#loadPosterInput.addEventListener('change', this.loadPicture.bind(this));
@@ -29,8 +29,8 @@ export class ModalEditMovie extends BaseComponent {
     $(this._element).modal('hide');
     const mainContent = document.querySelector('#content');
     mainContent.innerHTML = '';
-    readLocalStorage(arrMovies);
-    const newList = new ListMovies(arrMovies);
+
+    const newList = new ListMovies(readLocalStorage(arrMovies));
     mainContent.appendChild(newList.render());
   }
 
@@ -38,7 +38,7 @@ export class ModalEditMovie extends BaseComponent {
     const value = event.target.value;
     const key = event.target.dataset.key;
     localStorage.setItem(`${this.data.id}:${key}`, value);
-    const currentMovie = arrMovies.filter(item => {
+    const currentMovie = arrMovies.filter((item) => {
       if (item.id === this.data.id) {
         return item;
       }
