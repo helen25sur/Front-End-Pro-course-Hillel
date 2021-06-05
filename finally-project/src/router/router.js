@@ -1,8 +1,5 @@
-// import {Header} from './../header/Header';
-// import {CardMovie} from './../card-movie/CardMovie';
 import {PageMovie} from '../page-movie/PageMovie';
 import {ListMovies} from './../list-movies/ListMovies';
-// import {ModalNewMovie} from './../modal-window/ModalNewMovie';
 
 import {arrMovies} from '../card-movie/infMovies';
 import {readLocalStorage} from '../local-Storage/readLocalStorage';
@@ -38,7 +35,7 @@ export function renderRoute(pathname) {
             }
           }
         }
-        // console.log(value);
+
         const pageMovie = new PageMovie(value);
         mainContent.appendChild(pageMovie.render());
       } else if (localStorage.length === 0) {
@@ -61,7 +58,6 @@ export function renderRoute(pathname) {
     }
     case '#list': {
       mainContent.innerHTML = '';
-      // console.log(localStorage.length);
 
       if (localStorage.length === 0) {
         let list = new ListMovies(arrMovies);
@@ -84,7 +80,7 @@ export function renderRoute(pathname) {
 }
 
 appHistory.listen((listener) => {
-  console.log('history listener', `${listener.location.hash}`);
+  // console.log('history listener', `${listener.location.hash}`);
   renderRoute(listener.location.hash);
 });
 

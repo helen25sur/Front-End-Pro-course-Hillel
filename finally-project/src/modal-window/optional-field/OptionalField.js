@@ -1,5 +1,6 @@
 import {BaseComponent} from '../../baseComponents';
 import html from './optionalField.html';
+// import {optionalInf} from '../../card-movie/optionalInf';
 
 export class OptionalField extends BaseComponent {
   #fieldProfession;
@@ -13,18 +14,17 @@ export class OptionalField extends BaseComponent {
     this.#fieldProfession = this._element.querySelector('.optional-profession');
     this.#fieldName = this._element.querySelector('.optional-name');
 
-    this.#fieldProfession.addEventListener('input', this.onInput.bind(this));
-    this.#fieldName.addEventListener('input', this.onInput.bind(this));
-
     this.#fieldName.addEventListener('focusout', () => {
       localStorage.setItem(`${this.id}:${this.#fieldProfession.value}`, `optional-${this.#fieldName.value}`);
     });
+
+    // optionalInf.forEach(item => {
+    //   const keyObj = Object.keys(item);
+    //   keyObj.forEach(key => this.saveField(key, keyObj[key]));
+    // });
   }
 
-  onInput() {
-    const profession = this.#fieldProfession.value;
-    const name = this.#fieldName.value;
-
-    console.log(profession, name);
-  }
+  // static saveField(profession, name) {
+  //   localStorage.setItem(`${this.id}:${profession}`, `optional-${name}`);
+  // }
 }

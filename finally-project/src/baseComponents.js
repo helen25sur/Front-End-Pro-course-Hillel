@@ -1,5 +1,4 @@
 import template from 'lodash.template';
-// import {defaultTo} from 'lodash.defaultto';
 const emptyObj = {srcImg: 'https://serial-go.org/uploads/no_poster.jpg', screenplay: '',  producer: '',  cameraman: '',  composer: '',  textDescription:  '',  textRange: '',};
 
 function renderTemplate(html, data) {

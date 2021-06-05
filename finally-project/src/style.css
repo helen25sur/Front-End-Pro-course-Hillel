@@ -74,8 +74,14 @@ main {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  list-style: none;
 }
-
+.list-movies > li {
+  max-width: 48%;
+}
+.card {
+  max-width: 100% !important;
+}
 .movie-details {
   width: 95%;
 }
