@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+  height: 100vh;
+  background: url('bg-image.jpg') no-repeat center;
+  background-size: cover;
+  font-family: 'Aldrich', sans-serif;
+  font-size: 24px;
+  letter-spacing: 3px;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 60px;
+}
+
+.name-planet {
+  font-size: 1.5em;
+  color: #814428;
+}
+
+.btn-data {
+  font-family: 'Aldrich', sans-serif;
+  font-size: 1.2rem;
+  background-color: #9aaaaa;
+  display: inline-block;
+  padding: 5px 10px;
+  border: 2px solid #3c5a4c;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.select-list {
+  display: block;
+  margin-bottom: 25px;
+}
