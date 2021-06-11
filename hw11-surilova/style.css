@@ -1,0 +1,35 @@
+.container {
+	padding: 25px 0;
+}
+
+.wrapper-cards {
+	display: flex;
+	justify-content: space-around;
+}
+
+.square-card,
+.color-card {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-content: center;
+	width: 200px;
+	height: 200px;
+	cursor: pointer;
+}
+
+.counter {
+	width: 90px;
+	align-self: center;
+	text-align: center;
+	
+}
+.counter::before {
+	content: attr(data-counter);
+	font-size: 36px;
+	font-weight: bold;
+}
+
+.waves-effect:first-of-type {
+	margin-right: 5px;
+}
