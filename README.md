@@ -25,3 +25,9 @@
 
     This is very simple chat with external API for answers (the page isn't adaptive)
     
+### Link to Finally project "Мир Кино" https://helen25sur.github.io/Front-End-Pro-finally-project/finally-project/dist/index.html
+
+    This is single page application, using Local Storage for saving data, native JavaScript and classes.
+    I made only functionality, i.e. wrote the JavaScript code. 
+    The markup and styles was been ready when I started to work on the project. 
+    (The code and all commits are in this repository, but gh-page is in another repository)
